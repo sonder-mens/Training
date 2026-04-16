@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S o n d e r . — Assessments</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white: #ffffff;
+  --off-white: #f8f7f5;
+  --light: #f0eeeb;
+  --border: #e2dfd9;
+  --border-dark: #c8c4bc;
+  --text: #1a1a18;
+  --text-mid: #5a5a56;
+  --text-light: #9a9a94;
+  --green-dark: #1e3320;
+  --green: #2d4a30;
+  --green-mid: #4a7a50;
+  --green-light: #e8f0e8;
+  --concrete: #9a9590;
+  --pass: #2d6a3f;
+  --pass-bg: #edf5ef;
+  --fail: #8b2e2e;
+  --fail-bg: #f5edee;
+  --gold: #b8965a;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  background: var(--off-white);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TYPOGRAPHY ── */
+.brand-logo {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--text);
+}
+
+h1, h2, h3 {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 400;
+}
+
+/* ── LAYOUT ── */
+.header {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.header-logo { font-size: 17px; letter-spacing: 0.3em; }
+.header-meta { font-size: 11px; letter-spacing: 0.12em; color: var(--text-light); text-transform: uppercase; }
+
+.admin-btn {
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-light); background: none; border: none; cursor: pointer;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.2s;
+  font-family: 'Jost', sans-serif;
+}
+.admin-btn:hover { color: var(--text); border-color: var(--border-dark); }
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 64px 24px 120px; }
+
+/* ── SCREENS ── */
+.screen { display: none; }
+.screen.active {
+  display: block;
+  animation: appear 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes appear {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── HOME ── */
+.home-top {
+  padding: 48px 0 56px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+.home-eyebrow {
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-light); margin-bottom: 20px;
+}
+.home-title {
+  font-size: clamp(32px, 6vw, 52px);
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.home-sub {
+  font-size: 15px; color: var(--text-mid); line-height: 1.6;
+  max-width: 480px;
+}
+
+.name-row { margin-bottom: 40px; }
+.field-label {
+  display: block;
+  font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--text-light); margin-bottom: 10px;
+}
+.text-input {
+  width: 100%;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 14px 16px;
+  font-family: 'Jost', sans-serif;
+  font-size: 15px; font-weight: 300;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  letter-spacing: 0.03em;
+}
+.text-input:focus { border-color: var(--green-mid); }
+.text-input::placeholder { color: var(--text-light); }
+.text-input.error { border-color: var(--fail); }
+
+.modules-label {
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-light); margin-bottom: 20px;
+}
+
+.module-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+
+.module-row {
+  display: flex; align-items: center;
+  background: var(--white);
+  padding: 18px 24px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border: none; text-align: left; width: 100%;
+  font-family: 'Jost', sans-serif;
+  gap: 20px;
+}
+.module-row:hover { background: var(--off-white); }
+.module-row:active { background: var(--light); }
+
+.module-row-num {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 13px; color: var(--text-light);
+  width: 28px; flex-shrink: 0; text-align: right;
+}
+.module-row-info { flex: 1; }
+.module-row-title { font-size: 14px; color: var(--text); font-weight: 400; letter-spacing: 0.02em; }
+.module-row-chapter { font-size: 12px; color: var(--text-light); margin-top: 2px; letter-spacing: 0.05em; }
+.module-row-badge {
+  font-size: 11px; letter-spacing: 0.08em;
+  padding: 3px 10px; border-radius: 2px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.badge-done { background: var(--pass-bg); color: var(--pass); }
+.badge-new  { background: var(--light); color: var(--text-light); }
+.module-row-arrow { color: var(--border-dark); font-size: 14px; flex-shrink: 0; }
+
+/* ── EXAM ── */
+.exam-top {
+  padding: 40px 0 32px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+.exam-chapter { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); margin-bottom: 12px; }
+.exam-title { font-size: clamp(22px, 4vw, 32px); color: var(--text); margin-bottom: 8px; }
+.exam-desc { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+
+.progress-row {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 40px;
+}
+.progress-track {
+  flex: 1; height: 2px; background: var(--border); border-radius: 1px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: var(--green-mid); border-radius: 1px;
+  transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.progress-label { font-size: 12px; color: var(--text-light); letter-spacing: 0.05em; white-space: nowrap; }
+
+/* ── QUESTION ── */
+.q-number { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); margin-bottom: 16px; }
+.q-text {
+  font-family: 'Libre Baskerville', serif;
+  font-size: clamp(17px, 2.5vw, 21px);
+  line-height: 1.55; color: var(--text); margin-bottom: 32px;
+}
+
+/* Multiple choice */
+.mc-list { display: flex; flex-direction: column; gap: 8px; }
+.mc-btn {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 2px; padding: 14px 18px;
+  cursor: pointer; transition: all 0.15s;
+  font-family: 'Jost', sans-serif; font-size: 14px;
+  color: var(--text-mid); text-align: left; width: 100%;
+  line-height: 1.5; letter-spacing: 0.02em;
+}
+.mc-letter {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid var(--border-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; flex-shrink: 0; margin-top: 1px;
+  color: var(--text-light); transition: all 0.15s;
+}
+.mc-btn:hover { background: var(--off-white); border-color: var(--border-dark); color: var(--text); }
+.mc-btn:hover .mc-letter { border-color: var(--green-mid); color: var(--green-mid); }
+.mc-btn.selected { border-color: var(--green-mid); background: var(--green-light); color: var(--text); }
+.mc-btn.selected .mc-letter { background: var(--green-mid); border-color: var(--green-mid); color: white; }
+.mc-btn.correct { border-color: var(--pass); background: var(--pass-bg); color: var(--text); pointer-events: none; }
+.mc-btn.correct .mc-letter { background: var(--pass); border-color: var(--pass); color: white; }
+.mc-btn.wrong { border-color: var(--fail); background: var(--fail-bg); color: var(--text); pointer-events: none; }
+.mc-btn.wrong .mc-letter { background: var(--fail); border-color: var(--fail); color: white; }
+.mc-btn.reveal { border-color: var(--pass); background: var(--pass-bg); opacity: 0.6; pointer-events: none; }
+.mc-btn.locked { pointer-events: none; }
+
+/* Written answer */
+.written-wrap { display: flex; flex-direction: column; gap: 10px; }
+.written-input {
+  width: 100%; min-height: 120px;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 2px; padding: 14px 16px;
+  font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300;
+  color: var(--text); outline: none; resize: vertical;
+  transition: border-color 0.2s; letter-spacing: 0.02em; line-height: 1.6;
+}
+.written-input:focus { border-color: var(--green-mid); }
+.written-input:disabled { background: var(--light); color: var(--text-mid); }
+.written-hint { font-size: 12px; color: var(--text-light); letter-spacing: 0.05em; }
+.written-submitted {
+  background: var(--green-light); border: 1px solid var(--pass);
+  border-radius: 2px; padding: 12px 16px;
+  font-size: 13px; color: var(--pass);
+}
+
+/* Explanation */
+.explanation {
+  margin-top: 16px;
+  border-left: 2px solid var(--green-mid);
+  padding: 14px 16px;
+  background: var(--white);
+  border-radius: 0 2px 2px 0;
+  display: none;
+}
+.explanation.visible { display: block; animation: appear 0.3s ease; }
+.explanation-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green-mid); margin-bottom: 6px; }
+.explanation-text { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+
+/* Nav */
+.nav-row { display: flex; gap: 12px; margin-top: 40px; justify-content: space-between; align-items: center; }
+.btn-ghost {
+  padding: 12px 24px;
+  background: none; border: 1px solid var(--border);
+  border-radius: 2px;
+  font-family: 'Jost', sans-serif; font-size: 12px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-light); cursor: pointer; transition: all 0.2s;
+}
+.btn-ghost:hover { border-color: var(--border-dark); color: var(--text); }
+.btn-primary {
+  padding: 12px 32px;
+  background: var(--green-dark); border: 1px solid var(--green-dark);
+  border-radius: 2px;
+  font-family: 'Jost', sans-serif; font-size: 12px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--white); cursor: pointer; font-weight: 400;
+  transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--green); border-color: var(--green); }
+.btn-primary:disabled { background: var(--border); border-color: var(--border); color: var(--text-light); cursor: not-allowed; }
+
+/* ── RESULTS ── */
+.result-top { text-align: center; padding: 48px 0 40px; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
+.score-display {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 72px; line-height: 1;
+  color: var(--text); margin-bottom: 8px;
+}
+.score-display.pass { color: var(--pass); }
+.score-display.fail { color: var(--fail); }
+.result-verdict { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); margin-bottom: 8px; }
+.result-meta { font-size: 14px; color: var(--text-mid); }
+
+.answers-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
+.answer-card {
+  border: 1px solid var(--border); border-radius: 2px;
+  padding: 18px 20px 18px 48px;
+  background: var(--white); position: relative;
+}
+.answer-card::before {
+  content: '';
+  position: absolute; left: 18px; top: 22px;
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.answer-card.correct::before { background: var(--pass); }
+.answer-card.wrong::before   { background: var(--fail); }
+.answer-card.written::before { background: var(--gold); }
+.answer-q { font-family: 'Libre Baskerville', serif; font-size: 13px; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+.answer-given { font-size: 13px; color: var(--text-mid); margin-bottom: 4px; }
+.answer-correct-label { font-size: 12px; color: var(--pass); }
+.answer-written-label { font-size: 12px; color: var(--gold); }
+
+.result-actions { display: flex; flex-direction: column; gap: 8px; }
+
+.submit-note { text-align: center; font-size: 12px; color: var(--text-light); letter-spacing: 0.05em; margin-top: 12px; }
+.submit-note.ok { color: var(--pass); }
+.submit-note.err { color: var(--fail); }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 32px 0; }
+
+/* ── PIN MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(250,249,247,0.92);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  display: none;
+}
+.modal-overlay.open { display: flex; animation: appear 0.25s ease; }
+.modal-box {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 3px; padding: 48px 40px;
+  width: 100%; max-width: 400px;
+  text-align: center;
+}
+.modal-logo { font-size: 17px; letter-spacing: 0.3em; font-family: 'Libre Baskerville', serif; margin-bottom: 32px; color: var(--text); }
+.modal-title { font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-bottom: 24px; }
+.pin-dots { display: flex; justify-content: center; gap: 12px; margin-bottom: 24px; }
+.pin-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 1px solid var(--border-dark); background: transparent;
+  transition: all 0.15s;
+}
+.pin-dot.filled { background: var(--green-dark); border-color: var(--green-dark); }
+.pin-dot.error { border-color: var(--fail); background: var(--fail-bg); }
+.pin-keypad { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 16px; }
+.pin-key {
+  aspect-ratio: 1; background: var(--off-white);
+  border: 1px solid var(--border); border-radius: 2px;
+  font-family: 'Libre Baskerville', serif; font-size: 18px;
+  color: var(--text); cursor: pointer; transition: all 0.15s;
+}
+.pin-key:hover { background: var(--light); border-color: var(--border-dark); }
+.pin-key:active { background: var(--border); }
+.pin-key.clear { font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); }
+.pin-error { font-size: 12px; color: var(--fail); letter-spacing: 0.05em; min-height: 18px; }
+.modal-close { background: none; border: none; cursor: pointer; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-light); margin-top: 16px; font-family: 'Jost', sans-serif; }
+.modal-close:hover { color: var(--text); }
+
+/* ── ADMIN ── */
+.admin-header {
+  padding: 40px 0 32px; border-bottom: 1px solid var(--border); margin-bottom: 40px;
+  display: flex; align-items: flex-end; justify-content: space-between;
+}
+.admin-header h2 { font-size: 28px; }
+.admin-header p { font-size: 13px; color: var(--text-mid); margin-top: 6px; }
+
+.module-editor { margin-bottom: 40px; }
+.module-editor-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px; background: var(--white); border: 1px solid var(--border);
+  border-radius: 2px 2px 0 0; cursor: pointer; gap: 12px;
+}
+.module-editor-header:hover { background: var(--off-white); }
+.med-num { font-family: 'Libre Baskerville', serif; font-size: 12px; color: var(--text-light); }
+.med-title { font-size: 14px; color: var(--text); flex: 1; }
+.med-toggle { font-size: 13px; color: var(--text-light); transition: transform 0.2s; }
+.med-toggle.open { transform: rotate(90deg); }
+
+.module-editor-body {
+  border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 2px 2px;
+  display: none;
+}
+.module-editor-body.open { display: block; }
+
+.q-editor {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.q-editor:last-child { border-bottom: none; }
+.q-editor-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.q-type-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-light); }
+.q-type-toggle { display: flex; gap: 4px; }
+.type-btn {
+  padding: 4px 12px; border-radius: 2px; border: 1px solid var(--border);
+  font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-light); cursor: pointer; background: none; transition: all 0.15s;
+}
+.type-btn.active { background: var(--green-dark); border-color: var(--green-dark); color: white; }
+
+.q-text-edit {
+  width: 100%; background: var(--off-white);
+  border: 1px solid var(--border); border-radius: 2px;
+  padding: 10px 12px; font-family: 'Jost', sans-serif;
+  font-size: 14px; font-weight: 300; color: var(--text);
+  outline: none; resize: vertical; margin-bottom: 12px;
+  transition: border-color 0.2s; min-height: 60px; line-height: 1.5;
+}
+.q-text-edit:focus { border-color: var(--green-mid); background: var(--white); }
+
+.options-editor { display: flex; flex-direction: column; gap: 6px; }
+.option-edit-row { display: flex; align-items: center; gap: 8px; }
+.option-edit-letter { font-family: 'Libre Baskerville', serif; font-size: 12px; color: var(--text-light); width: 16px; flex-shrink: 0; }
+.option-edit-input {
+  flex: 1; background: var(--off-white); border: 1px solid var(--border);
+  border-radius: 2px; padding: 8px 10px;
+  font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300;
+  color: var(--text); outline: none; transition: border-color 0.2s;
+}
+.option-edit-input:focus { border-color: var(--green-mid); background: var(--white); }
+.correct-radio {
+  width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; accent-color: var(--green-dark);
+}
+.correct-label { font-size: 11px; color: var(--text-light); }
+
+.explanation-edit {
+  margin-top: 10px;
+}
+.explanation-edit textarea {
+  width: 100%; background: var(--off-white); border: 1px solid var(--border);
+  border-radius: 2px; padding: 8px 10px;
+  font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300;
+  color: var(--text); outline: none; resize: vertical; min-height: 60px;
+  transition: border-color 0.2s;
+}
+.explanation-edit textarea:focus { border-color: var(--green-mid); background: var(--white); }
+
+.admin-save-row { display: flex; justify-content: flex-end; margin-top: 24px; gap: 10px; }
+.save-note { font-size: 12px; color: var(--pass); align-self: center; }
+
+/* Written type indicator */
+.written-type-note {
+  background: #faf7f0; border: 1px solid #e8d9b5; border-radius: 2px;
+  padding: 10px 14px; font-size: 12px; color: var(--gold);
+  letter-spacing: 0.05em;
+}
+
+@media(max-width: 600px) {
+  .header { padding: 0 20px; }
+  .wrap { padding: 40px 16px 100px; }
+  .module-row { padding: 16px; }
+  .modal-box { padding: 32px 24px; margin: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="brand-logo header-logo">S o n d e r .</div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div class="header-meta" id="headerMeta"></div>
+    <button class="admin-btn" onclick="openPinModal()">Admin</button>
+  </div>
+</header>
+
+<!-- ── PIN MODAL ── -->
+<div class="modal-overlay" id="pinModal">
+  <div class="modal-box">
+    <div class="modal-logo">S o n d e r .</div>
+    <div class="modal-title">Admin Access</div>
+    <div class="pin-dots" id="pinDots">
+      <div class="pin-dot"></div>
+      <div class="pin-dot"></div>
+      <div class="pin-dot"></div>
+      <div class="pin-dot"></div>
+    </div>
+    <div class="pin-keypad">
+      <button class="pin-key" onclick="pinKey('1')">1</button>
+      <button class="pin-key" onclick="pinKey('2')">2</button>
+      <button class="pin-key" onclick="pinKey('3')">3</button>
+      <button class="pin-key" onclick="pinKey('4')">4</button>
+      <button class="pin-key" onclick="pinKey('5')">5</button>
+      <button class="pin-key" onclick="pinKey('6')">6</button>
+      <button class="pin-key" onclick="pinKey('7')">7</button>
+      <button class="pin-key" onclick="pinKey('8')">8</button>
+      <button class="pin-key" onclick="pinKey('9')">9</button>
+      <button class="pin-key clear" onclick="pinClear()">Clear</button>
+      <button class="pin-key" onclick="pinKey('0')">0</button>
+      <button class="pin-key clear" onclick="pinBack()">⌫</button>
+    </div>
+    <div class="pin-error" id="pinError"></div>
+    <button class="modal-close" onclick="closePinModal()">Cancel</button>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="wrap">
+
+  <!-- HOME -->
+  <div class="screen active" id="screen-home">
+    <div class="home-top">
+      <div class="home-eyebrow">Barbering Fundamentals</div>
+      <h1 class="home-title">Module<br>Assessments</h1>
+      <p class="home-sub">Complete each assessment after watching the video. Enter your name then select a module to begin.</p>
+    </div>
+
+    <div class="name-row">
+      <label class="field-label">Your name</label>
+      <input type="text" class="text-input" id="barberNameInput" placeholder="First and last name">
+    </div>
+
+    <div class="modules-label">Select a module</div>
+    <div class="module-list" id="moduleList"></div>
+  </div>
+
+  <!-- EXAM -->
+  <div class="screen" id="screen-exam">
+    <div class="exam-top">
+      <div class="exam-chapter" id="examChapter"></div>
+      <h2 class="exam-title" id="examTitle"></h2>
+      <p class="exam-desc" id="examDesc"></p>
+    </div>
+
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label" id="progressLabel"></div>
+    </div>
+
+    <div class="q-number" id="qNumber"></div>
+    <div class="q-text" id="qText"></div>
+    <div id="answerArea"></div>
+    <div class="explanation" id="explanationBox">
+      <div class="explanation-label">Explanation</div>
+      <div class="explanation-text" id="explanationText"></div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-ghost" id="btnBack" onclick="navQ(-1)">← Back</button>
+      <button class="btn-primary" id="btnNext" onclick="navQ(1)" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="screen" id="screen-result">
+    <div class="result-top">
+      <div class="score-display" id="scorePct"></div>
+      <div class="result-verdict" id="resultVerdict"></div>
+      <div class="result-meta" id="resultMeta"></div>
+    </div>
+
+    <div class="answers-list" id="answersList"></div>
+    <div class="submit-note" id="submitNote"></div>
+
+    <div class="result-actions">
+      <button class="btn-ghost" onclick="retake()">Retake this module</button>
+      <button class="btn-primary" onclick="goHome()">← All modules</button>
+    </div>
+  </div>
+
+  <!-- ADMIN -->
+  <div class="screen" id="screen-admin">
+    <div class="admin-header">
+      <div>
+        <h2>Question Editor</h2>
+        <p>Edit questions, change answer types, update correct answers and explanations.</p>
+      </div>
+      <button class="btn-ghost" onclick="goHome()">← Exit Admin</button>
+    </div>
+    <div id="adminModules"></div>
+  </div>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════
+const SHEET_URL  = 'https://script.google.com/macros/s/AKfycbx_hibu8sk3S5djvRueGgRWJ4dSa1RdoGOCpGIgZ3Xbx0cigvnesT2yCUp-yqzuAsn18w/exec';
+const ADMIN_PIN  = '1234'; // ← Change this PIN
+
+// ══════════════════════════════════════════════
+// MODULE DATA
+// ══════════════════════════════════════════════
+const DEFAULT_MODULES = [
+  {
+    id:1, title:'Good Haircut vs Bad Haircut',
+    chapter:'Chapter 1 — The Eye of the Barber',
+    desc:'Understanding what separates an excellent haircut from an average one.',
+    sheetTab:'Module 1 - Good vs Bad',
+    questions:[
+      { type:'mc', q:'What is the difference between macro and micro in a haircut?',
+        options:['Macro is the fade quality, micro is the overall shape','Macro is the overall shape and silhouette, micro is the detail up close like the fade and line up','Macro is how long the haircut takes, micro is how short it is','Macro refers to long hair, micro refers to short hair'],
+        answer:1, explanation:'Macro is everything you see from a distance — the overall shape, balance, and geometry. Micro is the detail up close — the fade, line up, texture, individual curls.' },
+      { type:'mc', q:'Why is the macro considered more important than the micro?',
+        options:['Because clients only ever see themselves from far away','Because fades are easy and anyone can do them','Because the macro shapes the silhouette and is tailored to the individual\'s head shape — it sets you apart from other barbers','Because macro takes more time to execute'],
+        answer:2, explanation:'The macro is what truly tailors the haircut to the individual\'s head shape and is what the eye is drawn to first.' },
+      { type:'written', q:'In your own words, explain what the "white line" is and why it must align with the rounding point of the head.', explanation:'The white line is where graduation begins to build length. It must sit at the same point where the head begins to round — when these two points align, the haircut looks made for that person.' },
+      { type:'mc', q:'If a fade is going upward on a head that naturally curves downward, what is the problem?',
+        options:['The fade will be too short','The fade is going against the natural curve of the head, making it look like it doesn\'t belong on that person','The fade will blend incorrectly into the top','There is no problem — fade direction doesn\'t matter'],
+        answer:1, explanation:'The fade should follow and complement the natural curve of the individual\'s head. Fighting against that curve creates a haircut that looks ill-fitting.' },
+      { type:'mc', q:'When assessing a client\'s existing haircut, what is the most important question to ask?',
+        options:['How short does the client want to go?','What specific hairs actually need to be cut to create the shape?','How long will the haircut take?','What guard number was used last time?'],
+        answer:1, explanation:'You need to identify specifically which hairs are causing the shape problem and target those — not cut everything uniformly.' }
+    ]
+  },
+  {
+    id:2, title:'Macro vs Micro',
+    chapter:'Chapter 1 — The Eye of the Barber',
+    desc:'Developing a framework for evaluating every haircut at two levels simultaneously.',
+    sheetTab:'Module 2 - Macro vs Micro',
+    questions:[
+      { type:'mc', q:'What does macro look like in a haircut?',
+        options:['The length of the hair','What you see from far away — the shape, balance, and overall silhouette','The quality of the fade up close','The number of techniques used'],
+        answer:1, explanation:'Macro is everything visible from a distance — the overall shape, balance, and geometry.' },
+      { type:'written', q:'Why do most barbers focus only on the micro and neglect the macro? Write your answer in full sentences.', explanation:'Clients tend to notice and comment on the fade and detail, so barbers naturally focus there. The macro — the overall shape — is overlooked because most clients and barbers haven\'t been trained to see it.' },
+      { type:'mc', q:'A client has a perfect fade but a lumpy, inconsistent silhouette. How would you describe this haircut?',
+        options:['World-class — the fade is perfect','Good micro, poor macro — decent but not truly excellent','A bad haircut in every way','Great — most clients won\'t notice'],
+        answer:1, explanation:'This is good micro, poor macro. The fade is there but the overall shape lets it down.' },
+      { type:'mc', q:'What does the macro silhouette look like when the lights are turned off?',
+        options:['You can\'t see anything without lights','You see the fade lines clearly','You see the pure outline — revealing whether the silhouette is fluid and consistent','You see only the top of the hair'],
+        answer:2, explanation:'In darkness, all micro detail disappears and you\'re left with only the silhouette — the clearest way to judge the macro.' },
+      { type:'mc', q:'What one thing will truly set a barber apart from the majority?',
+        options:['Faster cutting speed','More expensive tools','Mastering both macro and micro, with macro as the primary priority','Specialising in one type of haircut'],
+        answer:2, explanation:'Most barbers only focus on micro. A barber who masters macro AND delivers strong micro work operates at a completely different level.' }
+    ]
+  },
+  {
+    id:3, title:'Silhouettes',
+    chapter:'Chapter 1 — The Eye of the Barber',
+    desc:'Understanding that silhouette is the primary objective of every haircut.',
+    sheetTab:'Module 3 - Silhouettes',
+    questions:[
+      { type:'mc', q:'Why does the instructor use examples like a Ferrari and a cheetah?',
+        options:['To show haircuts should look like cars','Everything desirable has a beautiful, fluid silhouette — and hair is no different','Because speed matters in barbering','To make the lesson more interesting'],
+        answer:1, explanation:'Everything desirable is recognised and admired primarily through its silhouette. The principle applies directly to hair.' },
+      { type:'mc', q:'Which comes first — silhouette or detail?',
+        options:['Detail — the eye notices the fade first','Both are processed at the same time','Silhouette — the eye reads the overall shape before any detail','It depends on lighting'],
+        answer:2, explanation:'The eye always reads the silhouette first. Shape is processed before detail.' },
+      { type:'written', q:'Describe in your own words what "fluid" means in the context of a haircut silhouette. What does the opposite look like?', explanation:'A fluid silhouette flows consistently and smoothly — no sections sticking out, no lumps, no abrupt changes. It reads as one cohesive shape.' },
+      { type:'mc', q:'What are the two tools that allow you to alter a person\'s silhouette?',
+        options:['Scissors and clippers','Technique (graduation, layer, line) and outlines (fringe, neckline)','Fading and blending','Product and blow-drying'],
+        answer:1, explanation:'Technique controls the silhouette vertically. Outlines such as the fringe and neckline further enhance and define the silhouette.' },
+      { type:'mc', q:'What will you primarily be attracted to when you look at your favourite Instagram haircut?',
+        options:['The fade quality','The texture','The macro — the overall shape and silhouette','The tools used'],
+        answer:2, explanation:'Every haircut you\'ve ever saved has a strong macro. The silhouette is what stopped the scroll.' }
+    ]
+  },
+  {
+    id:4, title:'Reference Points',
+    chapter:'Chapter 1 — The Eye of the Barber',
+    desc:'Learning to read a client\'s face and head before picking up scissors.',
+    sheetTab:'Module 4 - Reference Points',
+    questions:[
+      { type:'mc', q:'What are the three fixed facial reference points?',
+        options:['Nose, lips, chin','Eyebrow ridge, cheekbone, jawline','Eyes, ears, forehead','Hairline, crown, nape'],
+        answer:1, explanation:'The three fixed reference points are the eyebrow ridge, cheekbone, and jawline. At each one, ask: is this feature soft or sharp?' },
+      { type:'mc', q:'What is the difference between a sharp cheekbone and a soft cheekbone?',
+        options:['Sharp means good genetics, soft means not','Sharp projects outward and creates a hollow shadow. Soft has no projection and no shadow.','Sharp is high, soft is low','There is no practical difference'],
+        answer:1, explanation:'A sharp cheekbone projects outward and casts a shadow underneath. A soft cheekbone has no projection and no shadow — colour stays consistent through that area.' },
+      { type:'written', q:'A client has a tall face shape. Describe what you would and would not do with their haircut, and explain why.', explanation:'Never add length on top or a beard — this extends the vertical dimension. Instead, push hair forward onto the forehead to close the distance between hairline and eyebrows.' },
+      { type:'mc', q:'What does it mean that barbers are "interpreters for the hair and the head"?',
+        options:['Barbers should speak only when spoken to','Barbers translate client requests into what will actually work for their specific anatomy','Barbers need multiple languages','Barbers should explain every cut in technical terms'],
+        answer:1, explanation:'The client describes what they want — it\'s the barber\'s job to analyse their face, head shape, and hair type and translate that into something that works for them.' },
+      { type:'mc', q:'A client has a strong angular jawline. Should the haircut cover it or reveal it?',
+        options:['Cover it — strong features look harsh','Reveal it — a strong jawline is an asset that should be accentuated','It doesn\'t matter','Cover it with the neckline detail'],
+        answer:1, explanation:'A sharp jawline is a strong, desirable feature. Design the haircut so the jawline is visible and accentuated.' }
+    ]
+  },
+  {
+    id:5, title:'Head Shape & Natural Fall',
+    chapter:'Chapter 1 — The Eye of the Barber',
+    desc:'The single most important concept in haircutting.',
+    sheetTab:'Module 5 - Natural Fall',
+    questions:[
+      { type:'mc', q:'Why does "vertical" mean something different at every point on the head?',
+        options:['It doesn\'t — vertical is always straight down','Because the head is round, the direction that is truly straight down changes at every point around it','Because the barber changes angle when they move','Because different lengths change the definition'],
+        answer:1, explanation:'The head is a round 3D object. Vertical radiates in every direction from the apex, so true vertical is different at every position around the head.' },
+      { type:'mc', q:'What is natural fall?',
+        options:['When hair is blow-dried straight','Where the hair sits when under nothing but gravity — completely undisturbed','The direction hair grows from the follicle','When hair is wet and heavy'],
+        answer:1, explanation:'Natural fall is the position the hair takes when nothing influences it except gravity. No product, no styling, no manipulation.' },
+      { type:'written', q:'Explain why you can only cut approximately 3–4 teeth worth of hair at one time on a round section. What happens if you take too much?', explanation:'Only a small number of hairs sit on any given curve at one time. If you take more, the outer hairs must travel away from their natural fall to reach your fingers — that is over-direction.' },
+      { type:'mc', q:'What happens when you pick up a section that is too wide on a round surface?',
+        options:['Nothing — the result is the same','The outer hairs get over-directed and when released spring back to a different position — the cut shape won\'t be what you expected','The section becomes too heavy','The scissors won\'t cut cleanly'],
+        answer:1, explanation:'When a section is too wide, outer hairs must travel to reach your fingers. When released they spring back, creating an uneven cut that doesn\'t follow the head shape.' },
+      { type:'mc', q:'How do you confirm that hair is in its true natural fall?',
+        options:['Comb it flat and hold it tightly','Let go — if it springs back to exactly where you were picking it up from, it was in natural fall','Pull it as tight as possible','Check it looks straight from the front'],
+        answer:1, explanation:'Let go. If the hair falls back to the exact point on the head you were picking it up from, you had it in natural fall.' }
+    ]
+  },
+  {
+    id:6, title:'The 3 Techniques — Theory',
+    chapter:'Chapter 2 — The Laws of Hair',
+    desc:'The only three ways hair can ever be cut.',
+    sheetTab:'Module 6 - Techniques Theory',
+    questions:[
+      { type:'mc', q:'Name the three techniques and their elevation ranges.',
+        options:['Fade (0°), Blend (45°), Layer (90°+)','Line (0°), Graduation (1°–89°), Layer (90°+)','Short (0–30°), Medium (30–60°), Long (60–90°)','Base (0°), Mid (45°), High (90°)'],
+        answer:1, explanation:'Line = 0 degrees. Graduation = 1 to 89 degrees. Layer = 90 degrees and above. These are the only three regardless of what tool you use.' },
+      { type:'mc', q:'Why does a line create a smooth texture?',
+        options:['It\'s cut with scissors rather than clippers','All hair falls to the same point — the top hair covers everything underneath, creating a smooth unbroken surface','It\'s cut on dry hair','The hair is very short'],
+        answer:1, explanation:'At zero degrees, all hairs hang to one point. The longest hair on top covers everything beneath — no texture breaks through. Pure smoothness.' },
+      { type:'written', q:'In your own words, explain the fundamental difference between graduation and a layer in terms of where weight sits.', explanation:'In graduation, hair gets progressively longer as you move up — weight builds. In a layer, the hair above is shorter than the hair below — weight is removed.' },
+      { type:'mc', q:'How many total technique-shape combinations are available?',
+        options:['3 — one per technique','6 — three techniques times two shapes','9 — three techniques times three shapes (square, round, triangle)','Unlimited'],
+        answer:2, explanation:'3 techniques × 3 shapes = 9 combinations. You can also combine different techniques in one haircut.' },
+      { type:'mc', q:'Your scissors are below your fingers while cutting. Which technique is this?',
+        options:['Layering','A line','Graduation','Over direction'],
+        answer:2, explanation:'When you cut below your fingers — graduation. When you cut above — layering. The position of scissors relative to fingers tells you which technique you\'re using.' }
+    ]
+  },
+  {
+    id:7, title:'The 3 Techniques — Mechanics',
+    chapter:'Chapter 2 — The Laws of Hair',
+    desc:'The visual characteristics of each technique in detail.',
+    sheetTab:'Module 7 - Techniques Mechanics',
+    questions:[
+      { type:'mc', q:'What does 90° look like using the room as reference?',
+        options:['Pointing at the ceiling','Hair parallel to the floor','Hair parallel to the wall','The angle of the scissors'],
+        answer:1, explanation:'0° = straight down (natural fall). 90° = parallel to the floor. 180° = parallel to the wall. The room is always your reference.' },
+      { type:'mc', q:'How does increasing elevation within graduation change what you see?',
+        options:['Higher elevation makes hair shorter overall','Higher elevation increases visible texture — the greater the elevation, the more shorter underlying hair is exposed','Higher elevation makes hair smoother','Elevation within graduation has no visible effect'],
+        answer:1, explanation:'As elevation increases, the top hair ends higher up — exposing more of the shorter hair below. More texture becomes visible.' },
+      { type:'written', q:'Explain the relationship between elevation and volume. Which technique creates the most volume and why?', explanation:'Layers create the most volume — at high elevation, the top hair is shorter than the hair below. Nothing weighs it down from above, so it lifts.' },
+      { type:'mc', q:'What visual characteristic does graduation produce?',
+        options:['Maximum volume','Smooth texture with structure at the ends — like a shelf','Maximum texture throughout','A perfectly flat result'],
+        answer:1, explanation:'Graduation produces flatness above with structure at the ends — the progressively longer hair sticks out from the head, building a shelf-like shape.' },
+      { type:'mc', q:'Which technique would you use if a client needs more volume?',
+        options:['A line — smooth hair looks fuller','Graduation — it builds structure','A layer — removing weight from above allows the hair to lift','None — volume only comes from blow-drying'],
+        answer:2, explanation:'Layers remove weight. When hair above is shorter than hair below, nothing pulls it down. It lifts naturally, creating volume.' }
+    ]
+  },
+  {
+    id:8, title:'Over Direction',
+    chapter:'Chapter 2 — The Laws of Hair',
+    desc:'How hair moves horizontally and how shapes are controlled.',
+    sheetTab:'Module 8 - Over Direction',
+    questions:[
+      { type:'mc', q:'What is the difference between elevation and over direction?',
+        options:['They are the same thing','Elevation moves hair vertically. Over direction moves hair horizontally. They are completely separate axes.','Elevation is for the top, over direction for the sides','Elevation uses clippers, over direction uses scissors'],
+        answer:1, explanation:'Elevation and over direction operate on completely different axes. Both can happen simultaneously but they are distinct movements.' },
+      { type:'written', q:'Explain in your own words why a square shape builds more length where the head rounds. What physically happens when you pull hair to a flat wall?', explanation:'Hair at the corners must travel further to reach the flat wall, so less is cut from those areas. When released, corner hair is longer — building length exactly where the head rounds in.' },
+      { type:'mc', q:'When is a round shape the best choice for the horizontal plane?',
+        options:['When the client has a round face','When you want hair to move and flow naturally — every hair on the axis is the same length, creating no buildup','When the client wants a square look','Round shapes are never the best choice'],
+        answer:1, explanation:'A round shape means every hair on that axis is cut to the same length, matching the head\'s curvature. Hair flows and moves naturally.' },
+      { type:'mc', q:'To build length toward the front of the head, which way do you over-direct?',
+        options:['Pull hair toward the back','Pull hair toward the front','Pull hair straight up','You cannot build length in a specific direction'],
+        answer:0, explanation:'To build length toward the front, pull the hair backward. Front hair stretches away from the guide and less is cut — when released, the front is longer.' },
+      { type:'mc', q:'How do you ensure consistent over direction when cutting a square shape?',
+        options:['Use the ceiling as reference','Stand the client square to a wall or mirror, then pull hair perpendicular to that wall — it gives you a consistent flat reference plane','Use floor tiles as a grid','Feel is enough — no reference needed'],
+        answer:1, explanation:'Stand the client square to the mirror or wall. Direct all hair straight back to that wall. The wall tells you if you\'re pulling consistently perpendicular.' }
+    ]
+  },
+  {
+    id:9, title:'Stages of Hair',
+    chapter:'Chapter 2 — The Laws of Hair',
+    desc:'How hair behaves differently depending on its length and type.',
+    sheetTab:'Module 9 - Stages of Hair',
+    questions:[
+      { type:'mc', q:'What are the three stages of hair?',
+        options:['Wet, damp, dry','Sit, Move, Drop','Short, medium, long','Fine, medium, coarse'],
+        answer:1, explanation:'Sit: hair stands out from the head. Move: hair shifts off its axis. Drop: hair falls under gravity and texture becomes more relevant than silhouette.' },
+      { type:'written', q:'Explain why hair in the "move" stage needs a more exaggerated shape cut into it than hair in the "sit" stage.', explanation:'When hair moves, it shrinks toward the head. A square shape will round out as it moves. You must overcut the shape — anticipating the shrinkage — to see the correct result once the hair settles.' },
+      { type:'mc', q:'How does curly hair behave differently to straight hair across the stages?',
+        options:['Curly progresses through all stages faster','Curly sits for a long time, almost skips the move stage, and goes directly to drop','They behave identically','Curly drops immediately without sit or move'],
+        answer:1, explanation:'Straight hair moves through stages progressively. Curly hair sits for a very long time and essentially skips the move stage — fundamentally changing how you approach cutting it.' },
+      { type:'mc', q:'A client with thick curly hair has a lot of length taken off. Which stage does their hair return to?',
+        options:['Drop — curly always drops','Move — hair moves more freely','Sit — cutting it short returns curly hair to standing out from the head','Curly hair doesn\'t follow the stages'],
+        answer:2, explanation:'Cutting curly hair short returns it to the sit stage. The shape you see immediately after cutting is the shape that will stay.' },
+      { type:'mc', q:'When hair is in the drop stage, what are you primarily managing?',
+        options:['The silhouette','The fade','Texture — the silhouette is determined by head shape, so you work with weight distribution and visible texture','The parting'],
+        answer:2, explanation:'In the drop stage, hair simply falls to the head shape — the cut no longer meaningfully changes the silhouette. You\'re working with texture and weight dispersion.' }
+    ]
+  },
+  {
+    id:10, title:'Choice of Length',
+    chapter:'Chapter 2 — The Laws of Hair',
+    desc:'The third and final way to manipulate hair.',
+    sheetTab:'Module 10 - Choice of Length',
+    questions:[
+      { type:'mc', q:'What are the three ways to manipulate hair?',
+        options:['Scissors, clippers, razor','Elevation (up/down), Over direction (side to side), Choice of length (reactivity and texture)','Fade, blend, texture','Short, medium, long'],
+        answer:1, explanation:'The three laws: Elevation controls weight vertically. Over direction controls length horizontally. Choice of length controls reactivity and texture.' },
+      { type:'mc', q:'Why does cutting hair shorter increase its reactivity?',
+        options:['Shorter hair grows faster','Shorter hair is lighter — less weight pulling it down, so it responds more strongly to its natural texture','Scissors cut closer at shorter lengths','Shorter hair is not more reactive'],
+        answer:1, explanation:'Shorter hair is lighter. Without weight pulling it down, it reacts more strongly — sticking out more, curling more, amplifying the cut shape.' },
+      { type:'written', q:'Explain what happens to visible texture when you cut the same graduation shape at 10cm versus 50cm. Why does this happen?', explanation:'At 10cm the disparity between shortest and longest hairs is proportionally large — texture is clearly visible. At 50cm the same difference becomes tiny relative to the total length, and the surface appears smooth.' },
+      { type:'mc', q:'How does hair type affect choice of length?',
+        options:['Hair type has no relationship to length','Coarse thick hair is highly reactive to length changes. Fine soft hair is much less reactive and changes have a subtle effect.','Fine hair must always be cut shorter','Only straight hair is affected by length'],
+        answer:1, explanation:'Coarse thick hair reacts strongly to length changes. Fine soft hair is less reactive and sits down even at shorter lengths. Knowing this helps you predict the result before you cut.' },
+      { type:'mc', q:'Why does choice of length matter even if technique and shape stay the same?',
+        options:['It doesn\'t — if technique and shape are correct, length is irrelevant','Because the same technique at a different length produces a different result — texture and reactivity both change','Longer cuts are always better quality','Clients always have a preference'],
+        answer:1, explanation:'Length is the third variable. It changes the result independently of technique and shape.' }
+    ]
+  },
+  {
+    id:11, title:'Graduation Underhand — Intro',
+    chapter:'Chapter 3 — Hands On',
+    desc:'The correct physical process for picking up hair for graduation.',
+    sheetTab:'Module 11 - Underhand Intro',
+    questions:[
+      { type:'mc', q:'Why can a diagonal section not be a perfectly straight line on a round head?',
+        options:['Barbers don\'t have rulers','The head is curved — a line that appears diagonal must curve to remain truly diagonal as it travels around the head, like longitude lines on a globe','Diagonal sections always become horizontal','The comb isn\'t long enough'],
+        answer:1, explanation:'On a round surface, a line that is straight relative to the surface must curve when viewed from outside. To stay truly diagonal, the section line must curve.' },
+      { type:'written', q:'Explain what "the peel" is and what goes wrong if you lift the comb when driving it into the section.', explanation:'The peel: drive the comb into the section and peel it away from the scalp without lifting. If you push the spine up, you create elevation before you\'ve even started — corrupting the guide.' },
+      { type:'mc', q:'Why should you only pick up two sections at a time?',
+        options:['More sections make the cut too heavy','You lose your guide. The previous cut section is your reference — too much new hair makes it impossible to see the guide and maintain consistency','Scissors can\'t cut more than two sections','There is no problem with picking up multiple sections'],
+        answer:1, explanation:'The previous section is your guide. If you pick up too much hair, you lose sight of the guide and can no longer maintain a consistent shape.' },
+      { type:'mc', q:'Why does the instructor say to look at the hair below your fingers, not above?',
+        options:['Because hair above the fingers matters more','The hair above all looks the same regardless of position. Below your fingers — between your fingers and the scalp — is where you can see tension, elevation, and guide','Looking up causes strain','Because scissors are below the fingers'],
+        answer:1, explanation:'Above your fingers, all hair looks similar — you can\'t tell if something is wrong. Below is where all the diagnostic information is.' },
+      { type:'mc', q:'What does grooming the hair before taking a section accomplish technically?',
+        options:['Makes it look neater','Organises hair in the direction the section will travel, ensuring it sits in natural fall before you pick it up','Removes tangles that slow scissors','It is a formality only'],
+        answer:1, explanation:'Grooming before sectioning ensures hair is lying in its natural direction so you\'re working with natural fall from the very start of the pick-up.' }
+    ]
+  },
+  {
+    id:12, title:'Graduation Underhand — Demo',
+    chapter:'Chapter 3 — Hands On',
+    desc:'The full mechanical process for underhand graduation.',
+    sheetTab:'Module 12 - Underhand Demo',
+    questions:[
+      { type:'mc', q:'What does it mean to "bring the hair to the wall" and why must your fingers match it?',
+        options:['Physically rest hair against the wall','Direct the hair to the imaginary flat plane you\'re creating. Your fingers must mirror that angle — if they don\'t, the cut line won\'t create the wall you\'re trying to build','Pull hair as hard as possible toward the nearest wall','The wall refers only to the guide from the previous section'],
+        answer:1, explanation:'The wall is the imaginary flat plane your graduation is building. Your fingers must match the angle of that plane. If they\'re on a different angle, the cut creates a different unintended shape.' },
+      { type:'written', q:'Describe the difference between a "shelf" finger and clamping. When do you clamp and why?', explanation:'The finger rests underneath as a shelf to support the elevation set by the comb. Clamping early would change that elevation. You only clamp once the hair has travelled all the way to the cutting line.' },
+      { type:'mc', q:'What does twisting your wrist upward do to the cut?',
+        options:['Wrist position has no effect','Twisting up rotates your fingers — bending the hair and changing the elevation, creating an inconsistent cut. Rotating down keeps fingers flat against the comb','Twisting up makes it easier to see the guide','Rotating down makes the cut too shallow'],
+        answer:1, explanation:'When your wrist twists up, your fingers rotate and the hair bends — creating a different angle than what you set. Rotating down keeps fingers parallel to the comb, maintaining correct tension and cutting line.' },
+      { type:'mc', q:'How do you test for natural fall mid-section?',
+        options:['You cannot test mid-section','Let go. If it springs back to exactly where you were picking it up from, it was in natural fall. If it moves elsewhere, you were over-directing.','Pull harder until it stops moving','Only test before picking up, never during'],
+        answer:1, explanation:'Release. The hair will tell you exactly where it wants to be. If it goes back to where you were picking it up from — that\'s natural fall.' },
+      { type:'mc', q:'Why is looking below your fingers especially critical during cutting?',
+        options:['The camera is positioned below','Below is where you see tension, elevation, and guide connection — the hair above looks the same regardless of whether you\'re correct or not','The scissors operate below','Looking at either area is fine'],
+        answer:1, explanation:'The area between your fingers and scalp is where everything is revealed — tension consistency, elevation, guide connection. All diagnostic information is below.' }
+    ]
+  },
+  {
+    id:13, title:'Graduation Overhand / Layering',
+    chapter:'Chapter 3 — Hands On',
+    desc:'The overhand technique for layers — from tension to cut.',
+    sheetTab:'Module 13 - Overhand Layering',
+    questions:[
+      { type:'mc', q:'What is the key physical difference between picking up for graduation versus layering?',
+        options:['Graduation uses clippers, layering uses scissors','Graduation: cut below your fingers (underhand). Layering: cut above your fingers (overhand). The relationship to your fingers is reversed.','Graduation is done on wet hair, layering on dry','There is no physical difference'],
+        answer:1, explanation:'Graduation = cutting below your fingers (underhand). Layering = cutting above your fingers (overhand). This changes your entire hand position and how you establish the cutting line.' },
+      { type:'written', q:'Explain why you comb through 5–10 times before cutting. What happens to the result if you skip this step?', explanation:'Combing removes knots and ensures even tension throughout. If you skip it, some hairs will be under more tension — when released they\'ll be at different lengths, creating an uneven cut.' },
+      { type:'mc', q:'If cutting a layer that follows the head shape, how do you find the head shape using your comb?',
+        options:['Measure from the occipital bone outward','Drive the comb teeth into the scalp until they touch the head — those hairs are on the true head shape. Only cut from that point.','Pull the hair tight and assume the shape','The head shape cannot be found with a comb'],
+        answer:1, explanation:'Drive the spine of the comb through until the teeth touch the scalp. The hairs the comb touches at that point are sitting on the true head shape — only those are cut together.' },
+      { type:'mc', q:'Why do you need many small cuts on a round surface rather than one or two large ones?',
+        options:['Small cuts are safer','A round surface cannot be cut in one straight line — each small section curves away, so multiple cuts are needed to mirror the curve accurately, like cutting a fingernail','Small cuts give the client more time','One large cut is always preferable'],
+        answer:1, explanation:'Think of cutting a fingernail — you can\'t do it in one cut because it\'s curved. One large cut on a curved surface produces a straight line — a polygon, not a curve.' },
+      { type:'mc', q:'What does creating a "channel" between the finger and the spine of the comb achieve?',
+        options:['A channel is a section parting made before cutting','The narrow gap forces every hair to pass through cleanly with consistent tension before clamping — resulting in an even cut','A channel refers to the direction of cut','It is a metaphor for communication'],
+        answer:1, explanation:'Keeping the finger close to the comb spine creates a narrow channel. Hair must pass through, forcing wayward hairs to straighten, removing remaining slack, ensuring every hair arrives at the cutting line with identical tension.' }
+    ]
+  }
+];
+
+// Load from localStorage if edited
+function loadModules() {
+  const saved = localStorage.getItem('sm_modules_v2');
+  return saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT_MODULES));
+}
+function saveModules(mods) {
+  localStorage.setItem('sm_modules_v2', JSON.stringify(mods));
+}
+let MODULES = loadModules();
+
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+let barberName = '';
+let currentMod = null;
+let currentQ = 0;
+let answers = [];
+let attemptCounts = JSON.parse(localStorage.getItem('sm_attempts_v2') || '{}');
+let bestScores = JSON.parse(localStorage.getItem('sm_scores_v2') || '{}');
+let pinBuffer = '';
+
+// ══════════════════════════════════════════════
+// SCREENS
+// ══════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ══════════════════════════════════════════════
+// HOME
+// ══════════════════════════════════════════════
+function init() { renderModuleList(); }
+
+function renderModuleList() {
+  const list = document.getElementById('moduleList');
+  list.innerHTML = MODULES.map(m => {
+    const attempts = attemptCounts[m.id] || 0;
+    const best = bestScores[m.id];
+    const done = attempts > 0;
+    return `<button class="module-row" onclick="selectModule(${m.id})">
+      <div class="module-row-num">${String(m.id).padStart(2,'0')}</div>
+      <div class="module-row-info">
+        <div class="module-row-title">${m.title}</div>
+        <div class="module-row-chapter">${m.chapter}</div>
+      </div>
+      <div class="module-row-badge ${done ? 'badge-done' : 'badge-new'}">
+        ${done ? `${best}% &nbsp;·&nbsp; ${attempts} attempt${attempts>1?'s':''}` : 'Not started'}
+      </div>
+      <div class="module-row-arrow">›</div>
+    </button>`;
+  }).join('');
+}
+
+function selectModule(id) {
+  barberName = document.getElementById('barberNameInput').value.trim();
+  if (!barberName) {
+    document.getElementById('barberNameInput').classList.add('error');
+    document.getElementById('barberNameInput').focus();
+    setTimeout(() => document.getElementById('barberNameInput').classList.remove('error'), 1500);
+    return;
+  }
+  document.getElementById('headerMeta').textContent = barberName;
+  currentMod = MODULES.find(m => m.id === id);
+  currentQ = 0;
+  answers = new Array(currentMod.questions.length).fill(null);
+  renderExam();
+  showScreen('exam');
+}
+
+// ══════════════════════════════════════════════
+// EXAM
+// ══════════════════════════════════════════════
+function renderExam() {
+  document.getElementById('examChapter').textContent = currentMod.chapter;
+  document.getElementById('examTitle').textContent = currentMod.title;
+  document.getElementById('examDesc').textContent = currentMod.desc;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = currentMod.questions[currentQ];
+  const total = currentMod.questions.length;
+  const pct = Math.round((currentQ / total) * 100);
+
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${currentQ + 1} / ${total}`;
+  document.getElementById('qNumber').textContent = `Question ${currentQ + 1}`;
+  document.getElementById('qText').textContent = q.q;
+
+  const exBox = document.getElementById('explanationBox');
+  const exText = document.getElementById('explanationText');
+  exBox.classList.remove('visible');
+  exText.textContent = '';
+
+  const area = document.getElementById('answerArea');
+  if (q.type === 'written') {
+    const submitted = answers[currentQ] !== null;
+    area.innerHTML = `<div class="written-wrap">
+      <textarea class="written-input" id="writtenInput" placeholder="Write your answer here…" ${submitted ? 'disabled' : ''}>${answers[currentQ] || ''}</textarea>
+      <div class="written-hint">${submitted ? '' : 'Take your time — write in full sentences.'}</div>
+      ${submitted ? `<div class="written-submitted">✓ Answer recorded</div>` : ''}
+    </div>`;
+    if (!submitted) {
+      document.getElementById('writtenInput').addEventListener('input', () => {
+        document.getElementById('btnNext').disabled = !document.getElementById('writtenInput').value.trim();
+      });
+    }
+    if (submitted && q.explanation) {
+      exText.textContent = q.explanation;
+      exBox.classList.add('visible');
+    }
+  } else {
+    const letters = ['A','B','C','D'];
+    area.innerHTML = `<div class="mc-list">${q.options.map((opt,i) => `
+      <button class="mc-btn ${answers[currentQ] === i ? 'selected' : ''}" onclick="selectMC(${i})">
+        <span class="mc-letter">${letters[i]}</span>
+        <span>${opt}</span>
+      </button>`).join('')}</div>`;
+    if (answers[currentQ] !== null) revealMC(answers[currentQ]);
+  }
+
+  document.getElementById('btnNext').disabled = answers[currentQ] === null;
+  const isLast = currentQ === total - 1;
+  document.getElementById('btnNext').textContent = isLast ? 'Submit →' : 'Next →';
+  document.getElementById('btnBack').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
+}
+
+function selectMC(idx) {
+  if (answers[currentQ] !== null) return;
+  answers[currentQ] = idx;
+  revealMC(idx);
+  document.getElementById('btnNext').disabled = false;
+}
+
+function revealMC(selected) {
+  const q = currentMod.questions[currentQ];
+  document.querySelectorAll('.mc-btn').forEach((btn, i) => {
+    btn.classList.remove('selected');
+    if (i === q.answer && i === selected) btn.className = 'mc-btn correct';
+    else if (i === selected) btn.className = 'mc-btn wrong';
+    else if (i === q.answer) btn.className = 'mc-btn reveal';
+    else btn.className = 'mc-btn locked';
+  });
+  if (q.explanation) {
+    document.getElementById('explanationText').textContent = q.explanation;
+    document.getElementById('explanationBox').classList.add('visible');
+  }
+}
+
+function navQ(dir) {
+  const total = currentMod.questions.length;
+  const q = currentMod.questions[currentQ];
+
+  if (dir === 1) {
+    // Save written answer
+    if (q.type === 'written') {
+      const inp = document.getElementById('writtenInput');
+      if (inp && inp.value.trim()) answers[currentQ] = inp.value.trim();
+    }
+    if (currentQ === total - 1) { submitExam(); return; }
+  }
+  currentQ = Math.max(0, Math.min(total - 1, currentQ + dir));
+  renderQuestion();
+}
+
+// ══════════════════════════════════════════════
+// SUBMIT
+// ══════════════════════════════════════════════
+function submitExam() {
+  const m = currentMod;
+  const mcQs = m.questions.filter(q => q.type === 'mc');
+  const correct = mcQs.filter((q, i) => {
+    const globalIdx = m.questions.indexOf(q);
+    return answers[globalIdx] === q.answer;
+  }).length;
+  const pct = mcQs.length > 0 ? Math.round((correct / mcQs.length) * 100) : 100;
+  const pass = pct >= 80;
+
+  if (!attemptCounts[m.id]) attemptCounts[m.id] = 0;
+  attemptCounts[m.id]++;
+  if (bestScores[m.id] === undefined || pct > bestScores[m.id]) bestScores[m.id] = pct;
+  localStorage.setItem('sm_attempts_v2', JSON.stringify(attemptCounts));
+  localStorage.setItem('sm_scores_v2', JSON.stringify(bestScores));
+
+  renderResult(pct, pass, correct, mcQs.length);
+  sendToSheet(pct, pass, correct, mcQs.length);
+  showScreen('result');
+}
+
+function renderResult(pct, pass, correct, mcTotal) {
+  const m = currentMod;
+  const pctEl = document.getElementById('scorePct');
+  pctEl.textContent = pct + '%';
+  pctEl.className = 'score-display ' + (pass ? 'pass' : 'fail');
+  document.getElementById('resultVerdict').textContent = pass ? 'Module Passed' : 'Keep Practising';
+  const writtenCount = m.questions.filter(q => q.type === 'written').length;
+  const note = writtenCount > 0 ? ` · ${writtenCount} written answer${writtenCount>1?'s':''} recorded for review` : '';
+  document.getElementById('resultMeta').textContent =
+    `${correct} of ${mcTotal} multiple choice correct · Attempt ${attemptCounts[m.id]}${note}`;
+
+  const list = document.getElementById('answersList');
+  list.innerHTML = m.questions.map((q,i) => {
+    if (q.type === 'written') {
+      return `<div class="answer-card written">
+        <div class="answer-q">${q.q}</div>
+        <div class="answer-given">${answers[i] || '—'}</div>
+        <div class="answer-written-label">Written answer — reviewed by manager</div>
+      </div>`;
+    } else {
+      const isCorrect = answers[i] === q.answer;
+      return `<div class="answer-card ${isCorrect ? 'correct' : 'wrong'}">
+        <div class="answer-q">${q.q}</div>
+        <div class="answer-given">Your answer: ${q.options[answers[i]] || '—'}</div>
+        ${!isCorrect ? `<div class="answer-correct-label">Correct: ${q.options[q.answer]}</div>` : ''}
+      </div>`;
+    }
+  }).join('');
+}
+
+function sendToSheet(pct, pass, correct, mcTotal) {
+  const m = currentMod;
+  const note = document.getElementById('submitNote');
+  note.textContent = 'Saving…'; note.className = 'submit-note';
+
+  const payload = {
+    tab: m.sheetTab, barber: barberName, module: m.title,
+    score: pct, correct, total: mcTotal,
+    attempt: attemptCounts[m.id], pass: pass ? 'PASS' : 'FAIL',
+    timestamp: new Date().toLocaleString('en-AU', {timeZone:'Australia/Sydney'}),
+    answers: m.questions.map((q,i) => ({
+      type: q.type,
+      question: q.q,
+      selected: q.type === 'written' ? answers[i] : (q.options[answers[i]] || 'No answer'),
+      correct: q.type === 'written' ? '(Written — review required)' : q.options[q.answer],
+      isCorrect: q.type === 'written' ? null : answers[i] === q.answer
+    }))
+  };
+
+  if (!SHEET_URL || SHEET_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+    note.textContent = 'Google Sheet not connected — results saved locally.';
+    note.className = 'submit-note err'; return;
+  }
+  fetch(SHEET_URL, {
+    method:'POST', mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  }).then(() => {
+    note.textContent = '✓ Results saved to training records.';
+    note.className = 'submit-note ok';
+  }).catch(() => {
+    note.textContent = 'Could not reach sheet — results saved locally.';
+    note.className = 'submit-note err';
+  });
+}
+
+function retake() {
+  currentQ = 0;
+  answers = new Array(currentMod.questions.length).fill(null);
+  renderExam(); showScreen('exam');
+}
+
+function goHome() {
+  renderModuleList(); showScreen('home');
+  document.getElementById('headerMeta').textContent = barberName || '';
+}
+
+// ══════════════════════════════════════════════
+// PIN
+// ══════════════════════════════════════════════
+function openPinModal() {
+  pinBuffer = '';
+  updatePinDots(false);
+  document.getElementById('pinError').textContent = '';
+  document.getElementById('pinModal').classList.add('open');
+}
+function closePinModal() {
+  document.getElementById('pinModal').classList.remove('open');
+  pinBuffer = '';
+}
+function pinKey(k) {
+  if (pinBuffer.length >= 4) return;
+  pinBuffer += k;
+  updatePinDots(false);
+  if (pinBuffer.length === 4) setTimeout(checkPin, 100);
+}
+function pinBack() {
+  pinBuffer = pinBuffer.slice(0,-1);
+  updatePinDots(false);
+}
+function pinClear() {
+  pinBuffer = '';
+  updatePinDots(false);
+}
+function updatePinDots(error) {
+  document.querySelectorAll('.pin-dot').forEach((d,i) => {
+    d.className = 'pin-dot' + (i < pinBuffer.length ? ' filled' : '') + (error ? ' error' : '');
+  });
+}
+function checkPin() {
+  if (pinBuffer === ADMIN_PIN) {
+    closePinModal();
+    renderAdmin();
+    showScreen('admin');
+  } else {
+    updatePinDots(true);
+    document.getElementById('pinError').textContent = 'Incorrect PIN';
+    pinBuffer = '';
+    setTimeout(() => { updatePinDots(false); document.getElementById('pinError').textContent = ''; }, 1200);
+  }
+}
+
+// ══════════════════════════════════════════════
+// ADMIN
+// ══════════════════════════════════════════════
+function renderAdmin() {
+  const container = document.getElementById('adminModules');
+  container.innerHTML = MODULES.map((m,mi) => `
+    <div class="module-editor" id="me-${mi}">
+      <div class="module-editor-header" onclick="toggleEditor(${mi})">
+        <div class="med-num">${String(m.id).padStart(2,'0')}</div>
+        <div class="med-title">${m.title}</div>
+        <div class="med-toggle" id="met-${mi}">›</div>
+      </div>
+      <div class="module-editor-body" id="meb-${mi}">
+        ${m.questions.map((q,qi) => renderQEditor(mi,qi,q)).join('')}
+        <div style="padding:16px 20px; background:var(--off-white); border-top:1px solid var(--border); display:flex; justify-content:flex-end; gap:10px; align-items:center;">
+          <span id="save-note-${mi}" class="save-note" style="display:none;">Saved</span>
+          <button class="btn-primary" onclick="saveModule(${mi})">Save changes</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderQEditor(mi, qi, q) {
+  const letters = ['A','B','C','D'];
+  const isMC = q.type !== 'written';
+  return `<div class="q-editor" id="qe-${mi}-${qi}">
+    <div class="q-editor-header">
+      <span style="font-size:12px;color:var(--text-light);letter-spacing:0.1em;">Q${qi+1}</span>
+      <span class="q-type-label">Type:</span>
+      <div class="q-type-toggle">
+        <button class="type-btn ${isMC ? 'active' : ''}" onclick="setQType(${mi},${qi},'mc')">Multiple Choice</button>
+        <button class="type-btn ${!isMC ? 'active' : ''}" onclick="setQType(${mi},${qi},'written')">Written</button>
+      </div>
+    </div>
+    <textarea class="q-text-edit" id="qt-${mi}-${qi}" placeholder="Question text…">${q.q}</textarea>
+    <div id="qopts-${mi}-${qi}">
+      ${isMC ? renderMCOpts(mi,qi,q) : renderWrittenNote()}
+    </div>
+    <div class="explanation-edit">
+      <label class="field-label" style="margin-bottom:6px;">Explanation shown after answering</label>
+      <textarea id="qexp-${mi}-${qi}" placeholder="Explanation…">${q.explanation || ''}</textarea>
+    </div>
+  </div>`;
+}
+
+function renderMCOpts(mi, qi, q) {
+  const letters = ['A','B','C','D'];
+  const opts = q.options || ['','','',''];
+  return `<div class="options-editor">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:6px;">
+      <span class="field-label" style="margin:0;margin-right:8px;">Correct answer →</span>
+    </div>
+    ${letters.map((l,i) => `
+      <div class="option-edit-row">
+        <span class="option-edit-letter">${l}</span>
+        <input type="text" class="option-edit-input" id="qopt-${mi}-${qi}-${i}" value="${opts[i] || ''}" placeholder="Option ${l}…">
+        <input type="radio" name="correct-${mi}-${qi}" class="correct-radio" id="qcr-${mi}-${qi}-${i}" value="${i}" ${q.answer === i ? 'checked' : ''}>
+        <label class="correct-label" for="qcr-${mi}-${qi}-${i}">Correct</label>
+      </div>`).join('')}
+  </div>`;
+}
+
+function renderWrittenNote() {
+  return `<div class="written-type-note">Written answer — barber types their response. No automatic marking. Answer is sent to your Google Sheet for manual review.</div>`;
+}
+
+function setQType(mi, qi, type) {
+  MODULES[mi].questions[qi].type = type;
+  const opts = document.getElementById(`qopts-${mi}-${qi}`);
+  const q = MODULES[mi].questions[qi];
+  opts.innerHTML = type === 'mc' ? renderMCOpts(mi, qi, q) : renderWrittenNote();
+  document.querySelectorAll(`#qe-${mi}-${qi} .type-btn`).forEach(b => b.classList.remove('active'));
+  document.querySelectorAll(`#qe-${mi}-${qi} .type-btn`).forEach((b,i) => {
+    if ((type === 'mc' && i === 0) || (type === 'written' && i === 1)) b.classList.add('active');
+  });
+}
+
+function toggleEditor(mi) {
+  const body = document.getElementById(`meb-${mi}`);
+  const toggle = document.getElementById(`met-${mi}`);
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  toggle.classList.toggle('open', !open);
+}
+
+function saveModule(mi) {
+  const m = MODULES[mi];
+  m.questions.forEach((q,qi) => {
+    const qtEl = document.getElementById(`qt-${mi}-${qi}`);
+    if (qtEl) q.q = qtEl.value.trim();
+    const expEl = document.getElementById(`qexp-${mi}-${qi}`);
+    if (expEl) q.explanation = expEl.value.trim();
+    if (q.type !== 'written') {
+      const opts = [0,1,2,3].map(i => {
+        const el = document.getElementById(`qopt-${mi}-${qi}-${i}`);
+        return el ? el.value.trim() : '';
+      });
+      q.options = opts;
+      const correct = document.querySelector(`input[name="correct-${mi}-${qi}"]:checked`);
+      if (correct) q.answer = parseInt(correct.value);
+    }
+  });
+  saveModules(MODULES);
+  const note = document.getElementById(`save-note-${mi}`);
+  note.style.display = 'inline';
+  setTimeout(() => { note.style.display = 'none'; }, 2000);
+}
+
+init();
+</script>
+</body>
+</html>
